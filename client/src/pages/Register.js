@@ -16,9 +16,9 @@ function Register() {
   };
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().required(),
-    password: Yup.string().min(1).max(15).required(),
-    username: Yup.string().min(1).max(8).required(),
+    email: Yup.string().email("Invalid email").required(),
+    password: Yup.string().min(3, "Too Short!").max(15, "Too Long!").required(),
+    username: Yup.string().min(3, "Too Short!").max(8, "Too Long!").required(),
   });
 
   const onSubmit = async (data) => {
@@ -43,11 +43,6 @@ function Register() {
         >
           <Form className="form">
             <label>Username </label>
-            <ErrorMessage
-              style={{ fontSize: "0.5rem" }}
-              name="username"
-              component="span"
-            />
             <Field
               style={{
                 backgroundColor: "transparent",
@@ -63,12 +58,13 @@ function Register() {
               name="username"
               placeholder="username"
             />
-            <label>Email </label>
             <ErrorMessage
               style={{ fontSize: "0.5rem" }}
-              name="email"
+              name="username"
               component="span"
             />
+
+            <label>Email </label>
             <Field
               style={{
                 backgroundColor: "transparent",
@@ -84,12 +80,13 @@ function Register() {
               name="email"
               placeholder="Email"
             />
-            <label>Password </label>
             <ErrorMessage
               style={{ fontSize: "0.5rem" }}
-              name="password"
+              name="email"
               component="span"
             />
+            <label>Password </label>
+
             <Field
               style={{
                 backgroundColor: "transparent",
@@ -104,6 +101,11 @@ function Register() {
               id="logincred"
               name="password"
               placeholder="Password"
+            />
+            <ErrorMessage
+              style={{ fontSize: "0.5rem" }}
+              name="password"
+              component="span"
             />
             <button type="submit"> Create User</button>
             <span>

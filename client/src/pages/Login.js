@@ -14,8 +14,8 @@ function Login() {
   };
 
   const validationSchema = Yup.object().shape({
-    password: Yup.string().required(),
-    username: Yup.string().required(),
+    password: Yup.string().min(3, "Too Short!").max(15, "Too Long!").required(),
+    username: Yup.string().min(3, "Too Short!").max(8, "Too Long!").required(),
   });
 
   const onSubmit = async (data) => {
@@ -38,12 +38,8 @@ function Login() {
         validationSchema={validationSchema}
       >
         <Form className="form">
-          {/* <div className="brand">
-                <img src={Logo} alt="logo" />
-                <h1>snappy</h1>
-              </div> */}
           <label>Username </label>
-          <ErrorMessage name="username" component="span" />
+
           <Field
             style={{
               backgroundColor: "transparent",
@@ -59,8 +55,9 @@ function Login() {
             name="username"
             placeholder="username"
           />
+          <ErrorMessage name="username" component="span" />
           <label>Password </label>
-          <ErrorMessage name="password" component="span" />
+
           <Field
             style={{
               backgroundColor: "transparent",
@@ -76,6 +73,7 @@ function Login() {
             name="password"
             placeholder="Password"
           />
+          <ErrorMessage name="password" component="span" />
           <button type="submit"> LOGIN</button>
           <span>
             Do not have an account ? <Link to="/register">Register.</Link>
