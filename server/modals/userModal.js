@@ -28,12 +28,12 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  contacts: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-  ],
+  // contacts: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "User",
+  //   },
+  // ],
 });
 
 module.exports = mongoose.model("User", UserSchema);

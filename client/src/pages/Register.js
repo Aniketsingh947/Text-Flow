@@ -5,26 +5,9 @@ import axios from "axios";
 import { registerRoute } from "../utils/APIroutes";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
+
 function Register() {
-  ///has to do work in css********************************************************************
-
-  // const [values, setValues] = useState({
-  //     username: "",
-  //     email: "",
-  //     password: "",
-  //     confirmPassword: "",
-  //   });
-
   const navigate = useNavigate();
-  const toastOptions = {
-    position: "bottom-right",
-    autoClose: 8000,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "dark",
-  };
 
   const initialValues = {
     username: "",
@@ -42,17 +25,13 @@ function Register() {
     const response = await axios.post(registerRoute, data);
     console.log(response);
     if (response.data.status === false) {
-      toast.error(response.data.msg, toastOptions);
+      alert(response.data.msg);
     }
     if (response.data.status === true) {
       localStorage.setItem("chat-app-user", JSON.stringify(response.data.user));
       navigate("/");
     }
   };
-
-  // const handleChange = (event) => {
-  //   setValues({ ...values, [event.target.name]: event.target.value });
-  // };
 
   return (
     <>
@@ -63,10 +42,6 @@ function Register() {
           validationSchema={validationSchema}
         >
           <Form className="form">
-            {/* <div className="brand">
-              <img src={Logo} alt="logo" />
-              <h1>snappy</h1>
-            </div> */}
             <label>Username </label>
             <ErrorMessage
               style={{ fontSize: "0.5rem" }}
@@ -137,7 +112,6 @@ function Register() {
           </Form>
         </Formik>
       </FormContainer>
-      {/* <ToastContainer /> */}
     </>
   );
 }

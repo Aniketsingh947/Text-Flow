@@ -2,11 +2,11 @@ const User = require("../modals/userModal");
 const bcrypt = require("bcrypt");
 
 module.exports.register = async (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const { username, email, password } = req.body;
     const usernameCheck = await User.find({ username });
-    console.log(usernameCheck.length);
+    // console.log(usernameCheck.length);
     if (usernameCheck.length === 1)
       return res.json({ msg: "Username already used", status: false });
     const emailCheck = await User.find({ email });
@@ -29,7 +29,8 @@ module.exports.login = async (req, res, next) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
-    if (user.length == 0)
+    // console.log(user);
+    if (user == null)
       return res.json({ msg: "Incorrect Username or Password", status: false });
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid)
@@ -45,6 +46,7 @@ module.exports.setAvatar = async (req, res, next) => {
   try {
     const userId = req.params.id;
     const avatarImage = req.body.image;
+    // console.log(avatarImage);
     const userData = await User.findByIdAndUpdate(
       userId,
       {

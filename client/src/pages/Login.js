@@ -5,18 +5,8 @@ import { loginRoute } from "../utils/APIroutes";
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
 function Login() {
   const navigate = useNavigate();
-
-  const toastOptions = {
-    position: "bottom-right",
-    autoClose: 8000,
-    pauseOnHover: true,
-    draggable: true,
-    theme: "dark",
-  };
 
   const initialValues = {
     username: "",
@@ -32,7 +22,7 @@ function Login() {
     const response = await axios.post(loginRoute, data);
     console.log(response);
     if (response.data.status === false) {
-      toast.error(response.data.msg, toastOptions);
+      alert(response.data.msg);
     }
     if (response.data.status === true) {
       localStorage.setItem("chat-app-user", JSON.stringify(response.data.user));
